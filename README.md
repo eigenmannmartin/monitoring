@@ -35,3 +35,8 @@ Test snmp
 ```
 snmpwalk -v2c -c public localhost .1.3.6.1.4.1.2021.13.18
 ```
+
+## smart
+Copy `smart-cron` and `smart.py` to `/opt/monitoring` and `snmp-smart`to `/etc/cron.hourly/`.
+For prtg to work also copy `smart.sh` and `temp.sh` to `/var/prtg/scriptsxml`
+
