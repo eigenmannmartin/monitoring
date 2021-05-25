@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# where to keep the files
+STORE=/var/local/snmp
+PREFIX=smart-
+
+SMARTLIST="
+"
+
+# go through our $SMARTLIST one by one
+counter=0
+for devfull in $SMARTLIST; do
+	dev=`basename $devfull`
+	dev=`printf "%03d-%s" $counter "$dev"`
+	counter=$(($counter+1))
+	if [ -b $devfull ]; then
+		# device exists
+		/usr/sbin/smartctl -n idle -a $devfull >$STORE/TMP.$PREFIX$dev
+	else
+		# no device - create placeholder file
+		touch $STORE/TMP.$PREFIX$dev
+	fi
+	mv $STORE/TMP.$PREFIX$dev $STORE/$PREFIX$dev
+done
